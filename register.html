@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QU Photography Club - Register</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header>
+        <h1>QU Photography Club</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="events.html">Events</a></li>
+                <li><a href="register.html" class="active">Register</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Event Registration Form</h2>
+            <div id="confirmation-msg" class="msg-box" style="display: none;"></div>
+
+            <form id="registrationForm">
+                <fieldset>
+                    <legend>Personal Information</legend>
+                    <p>
+                        <label for="fullName">Full Name:</label><br>
+                        <input type="text" id="fullName" name="fullName" required minlength="3" placeholder="e.g. Ali Ahmed">
+                    </p>
+                    <p>
+                        <label for="email">University Email:</label><br>
+                        <input type="email" id="email" name="email" required placeholder="e.g. student@qu.edu.pk">
+                    </p>
+                    <p>
+                        <label for="phone">Phone Number:</label><br>
+                        <input type="tel" id="phone" name="phone" pattern="03[0-9]{9}" placeholder="e.g. 03001234567" required>
+                    </p>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Event Details</legend>
+                    <p>
+                        <label for="eventChoice">Select Event:</label><br>
+                        <select id="eventChoice" name="eventChoice" required>
+                            <option value="">-- Choose an Event --</option>
+                            <option value="Portrait Photography Workshop">Portrait Photography Workshop</option>
+                            <option value="Outdoor Street Photography Walk">Outdoor Street Photography Walk</option>
+                            <option value="Night & Astrophotography Masterclass">Night & Astrophotography Masterclass</option>
+                            <option value="Annual Campus Photography Exhibition">Annual Campus Photography Exhibition</option>
+                        </select>
+                    </p>
+
+                    <fieldset>
+                        <legend>How did you hear about us?</legend>
+                        <label><input type="radio" name="hearAbout" value="Social Media" required> Social Media</label><br>
+                        <label><input type="radio" name="hearAbout" value="Classmates"> Classmates</label><br>
+                        <label><input type="radio" name="hearAbout" value="Posters"> Posters</label>
+                    </fieldset>
+                </fieldset>
+
+                <p>
+                    <button type="submit">Submit Registration</button>
+                </p>
+            </form>
+        </section>
+
+        <!-- Saved Registrations Table Section -->
+        <section>
+            <h2>Saved Registrations</h2>
+            <div id="table-container"></div>
+            <button id="clearBtn">Clear All Registrations</button>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 QU Photography Club. All rights reserved.</p>
+    </footer>
+
+    <!-- Plain JavaScript for localStorage -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const form = document.getElementById("registrationForm");
+            const confirmationMsg = document.getElementById("confirmation-msg");
+            const tableContainer = document.getElementById("table-container");
+            const clearBtn = document.getElementById("clearBtn");
+
+            displayRegistrations();
+
+            form.addEventListener("submit", function (e) {
+                e.preventDefault();
+
+                const newRegistration = {
+                    fullName: document.getElementById("fullName").value,
+                    email: document.getElementById("email").value,
+                    phone: document.getElementById("phone").value,
+                    eventChoice: document.getElementById("eventChoice").value,
+                    hearAbout: document.querySelector('input[name="hearAbout"]:checked').value
+                };
+
+                let registrations = JSON.parse(localStorage.getItem("clubRegistrations")) || [];
+                registrations.push(newRegistration);
+                localStorage.setItem("clubRegistrations", JSON.stringify(registrations));
+
+                confirmationMsg.style.display = "block";
+                confirmationMsg.innerText = "Success! Registration saved successfully.";
+                form.reset();
+
+                displayRegistrations();
+            });
+
+            function displayRegistrations() {
+                let registrations = JSON.parse(localStorage.getItem("clubRegistrations")) || [];
+                if (registrations.length === 0) {
+                    tableContainer.innerHTML = "<p>No registrations saved yet.</p>";
+                    return;
+                }
+
+                let html = `
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Event</th>
+                                <th>Source</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
+
+                registrations.forEach(function (reg) {
+                    html += `
+                        <tr>
+                            <td>${reg.fullName}</td>
+                            <td>${reg.email}</td>
+                            <td>${reg.phone}</td>
+                            <td>${reg.eventChoice}</td>
+                            <td>${reg.hearAbout}</td>
+                        </tr>
+                    `;
+                });
+
+                html += `</tbody></table>`;
+                tableContainer.innerHTML = html;
+            }
+
+            clearBtn.addEventListener("click", function () {
+                localStorage.removeItem("clubRegistrations");
+                confirmationMsg.style.display = "none";
+                displayRegistrations();
+            });
+        });
+    </script>
+
+</body>
+</html>
