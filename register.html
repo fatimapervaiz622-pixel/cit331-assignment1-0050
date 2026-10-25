@@ -24,19 +24,19 @@
             <h2>Event Registration Form</h2>
             <div id="confirmation-msg" class="msg-box" style="display: none;"></div>
 
-            <form id="registrationForm">
+            <form id="registrationForm" action="/submit" method="POST">
                 <fieldset>
                     <legend>Personal Information</legend>
                     <p>
-                        <label for="fullName">Full Name:</label><br>
+                        <label for="fullName">Full Name:</label>
                         <input type="text" id="fullName" name="fullName" required minlength="3" placeholder="e.g. Ali Ahmed">
                     </p>
                     <p>
-                        <label for="email">University Email:</label><br>
+                        <label for="email">University Email:</label>
                         <input type="email" id="email" name="email" required placeholder="e.g. student@qu.edu.pk">
                     </p>
                     <p>
-                        <label for="phone">Phone Number:</label><br>
+                        <label for="phone">Phone Number:</label>
                         <input type="tel" id="phone" name="phone" pattern="03[0-9]{9}" placeholder="e.g. 03001234567" required>
                     </p>
                 </fieldset>
@@ -44,7 +44,7 @@
                 <fieldset>
                     <legend>Event Details</legend>
                     <p>
-                        <label for="eventChoice">Select Event:</label><br>
+                        <label for="eventChoice">Select Event:</label>
                         <select id="eventChoice" name="eventChoice" required>
                             <option value="">-- Choose an Event --</option>
                             <option value="Portrait Photography Workshop">Portrait Photography Workshop</option>
@@ -56,8 +56,8 @@
 
                     <fieldset>
                         <legend>How did you hear about us?</legend>
-                        <label><input type="radio" name="hearAbout" value="Social Media" required> Social Media</label><br>
-                        <label><input type="radio" name="hearAbout" value="Classmates"> Classmates</label><br>
+                        <label><input type="radio" name="hearAbout" value="Social Media" required> Social Media</label>
+                        <label><input type="radio" name="hearAbout" value="Classmates"> Classmates</label>
                         <label><input type="radio" name="hearAbout" value="Posters"> Posters</label>
                     </fieldset>
                 </fieldset>
@@ -79,6 +79,7 @@
         <p>&copy; 2026 QU Photography Club. All rights reserved.</p>
     </footer>
 
+    <!-- Lecture 2 Slide 45: Web Storage API (localStorage) Script -->
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const form = document.getElementById("registrationForm");
@@ -101,6 +102,8 @@
 
                 let registrations = JSON.parse(localStorage.getItem("clubRegistrations")) || [];
                 registrations.push(newRegistration);
+                
+                // Lecture 2 Slide 45: Save value using localStorage.setItem
                 localStorage.setItem("clubRegistrations", JSON.stringify(registrations));
 
                 confirmationMsg.style.display = "block";
@@ -111,6 +114,7 @@
             });
 
             function displayRegistrations() {
+                // Lecture 2 Slide 45: Read value using localStorage.getItem
                 let registrations = JSON.parse(localStorage.getItem("clubRegistrations")) || [];
                 if (registrations.length === 0) {
                     tableContainer.innerHTML = "<p>No registrations saved yet.</p>";
@@ -148,6 +152,7 @@
             }
 
             clearBtn.addEventListener("click", function () {
+                // Lecture 2 Slide 45: Remove item using localStorage.removeItem
                 localStorage.removeItem("clubRegistrations");
                 confirmationMsg.style.display = "none";
                 displayRegistrations();
