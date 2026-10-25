@@ -1,26 +1,32 @@
 # cit331-assignment1-0050
 this is my assignment1
-# QU Photography Club Website
 
-A fully responsive, semantic multi-page web application developed for the QU Photography Club as part of **CIT331: Web Technologies - Assignment 1**.
+# QU Photography Club Website (CIT331 - Assignment 1)
+
+A multi-page responsive web application built for the QU Photography Club as part of the **CIT331 Web Technologies** course.
+
+## 🚀 Live Demo & Links
+- **Live Website:** [https://fatimapervaiz622-pixel.github.io/cit331-assignment1-0050/](https://fatimapervaiz622-pixel.github.io/cit331-assignment1-0050/)
+- **GitHub Repository:** [https://github.com/fatimapervaiz622-pixel/cit331-assignment1-0050](https://github.com/fatimapervaiz622-pixel/cit331-assignment1-0050)
 
 ---
 
-## 📌 Project Overview
-The QU Photography Club website serves as an interactive portal for university students to explore upcoming club events, view featured photo walks, and register for workshops online with dynamic `localStorage` data persistence.
+## 📌 Features & Architecture
+- **Semantic HTML5 Structure:** Built using proper semantic landmarks (`<header>`, `<nav>`, `<main>`, `<article>`, `<section>`, `<aside>`, `<time>`, `<footer>`).
+- **CSS3 Flexbox & Mobile-First Design:** Custom styling using external stylesheet (`css/styles.css`), Flexbox navigation, and media queries (`@media (max-width: 600px)`).
+- **Client-Side Form Validation:** HTML5 input validation (`required`, `pattern`, `email`, `tel`).
+- **Web Storage API:** Event registrations are saved and dynamically rendered using native browser `localStorage`.
 
 ---
 
-## 📂 Repository & Folder Structure
+## 🛠️ Project Structure
 ```text
 cit331-assignment1-0050/
-│
+├── index.html        # Homepage with club overview & featured event
+├── events.html       # Upcoming photography workshops & walks
+├── register.html     # Registration form with dynamic table output
 ├── css/
-│   └── styles.css          # Main stylesheet (Flexbox layout, media queries)
+│   └── styles.css    # Global responsive stylesheet
 ├── images/
-│   └── photowalk.jpg       # Featured photography image asset
-├── .gitignore              # Ignored untracked files
-├── README.md               # Project documentation
-├── index.html              # Club homepage with semantic sections & featured event
-├── events.html             # Agenda page listing 4 club activities
-└── register.html           # Event registration form with localStorage dynamic table
+│   └── photowalk.jpg # Campus photowalk event image
+└── README.md         # Repository documentation
